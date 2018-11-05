@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    transferfunction.cpp
+    transferfunction.cpp \
+    cascade_filter.cpp
 
 HEADERS += \
-    transferfunction.h
+    transferfunction.h \
+    cascade_filter.h
