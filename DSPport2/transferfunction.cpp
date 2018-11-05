@@ -22,20 +22,20 @@ void Transferfunction::DirectForm2(){
     sizeDen = _den.size();
 
     //ændrer fortegnet på alle tal i nævneren
-    for(unsigned int i = 0; i < sizeNum; ++i){
-        _num[i] = _num[i] * (-1);
+    for(unsigned int i = 0; i < sizeDen; ++i){
+        _den[i] = _den[i] * (-1);
     }
     //beregner w(n)
     std::cout << "w(n) = x(n) + ";
     int j = 1;
-    for(int i = sizeNum-2; i >= 0; --i){
+    for(int i = sizeDen-2; i >= 0; --i){
         //Hvis tallet er 0 skrives den ikke med i brøkken.
-        if(_num[i] != 0){
+        if(_den[i] != 0){
             if(i != 0){
-                std::cout<< _num[i] << "w(n - " << j << ") + ";
+                std::cout<< _den[i] << "w(n - " << j << ") + ";
             }
             else{
-                std::cout<< _num[i] << "w(n - " << j << ")";
+                std::cout<< _den[i] << "w(n - " << j << ")";
             }
         }
         else{
@@ -47,13 +47,13 @@ void Transferfunction::DirectForm2(){
     //beregner y(n)
     std::cout << "y(n) = ";
     int k = 0;
-    for(int i = sizeDen -1; i >=0; --i){
-        if(_den[i] != 0){
+    for(int i = sizeNum -1; i >=0; --i){
+        if(_num[i] != 0){
             if(i != 0){
-                std::cout << _den[i] << "w(n - " << k << ") + ";
+                std::cout << _num[i] << "w(n - " << k << ") + ";
             }
             else{
-                std::cout << _den[i] << "w(n - " << k << ")";
+                std::cout << _num[i] << "w(n - " << k << ")";
             }
         }
         else{
