@@ -5,21 +5,27 @@ Cascade_filter::Cascade_filter(const std::vector <Section> &sections) {
 }
 
 void Cascade_filter::calculate(std::string inputfile, std::string outputpath) {
-    std::vector <double> inputValues = readFile(inputfile);
-    std::vector <double> outputValues;
-    std::vector <std::vector <double> > w(_section.size());
 
-    // Initialiser w-vectoren.
+    std::vector <double> inputValues = readFile(inputfile); // Indeholder inputværdier
+    std::vector <double> outputValues; // Indeholder outputværdier.
+    std::vector <std::vector <double> > w(_section.size()); // Buffer, til at holde tidligere udregnede værdier for w_k(n-a).
+
+    // Initialiser w-vectoren, så størrelsen stemmer overens med tidligere input.
     for (unsigned int i = 0; i < w.size(); i++) {
         for (int j = 0; j < 2; j++) {
             w[i].push_back(NULL);
         }
     }
 
-    for (unsigned int in = 0; in < inputValues.size(); in++) {
+    for (unsigned int in = 0; in < inputValues.size(); in++) { // Løber gennem alle inputværdierne.
         double output = inputValues[in];
-        for (unsigned int sec = 0; sec < _section.size(); sec++ ) {
-            output += calcSection(w[sec], _section[sec], output);
+        for (unsigned int sec = 0; sec < _section.size(); sec++ ) { // Udregn outputtet af hver kaskade.
+//            if (sec == 0) {
+//                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
+//                    _section[sec]._num[i]*=97.0;
+//                }
+//            }
+            output = calcSection(w[sec], _section[sec], output);
 
         }
         outputValues.push_back(output);
@@ -47,17 +53,20 @@ std::vector <double> Cascade_filter::readFile(std::string inputFile ) {
 double Cascade_filter::calcSection(std::vector <double> &w, const Section &section, double in ) {
 
     double vv = in;
-    double out = in;
-    for (unsigned int a = 0; a < (section._num.size()-1); a++ ) { // Udregning af w.
+    double out = 0;
+    for (unsigned int a = 1; a < (section._denum.size()); a++ ) { // Udregning af w_k.
         if (w[a] == NULL) {
             continue;
         }
-        vv += section._num[a]*w[a];
+        vv += section._denum[a]*w[a]*(-1.0);
     }
 
-    for (unsigned int b = 0; b < (section._denum.size()-1); b++ ) { // Udregning af y_k.
+    for (unsigned int b = 0; b < (section._num.size()); b++ ) { // Udregning af y_k.
         if (w[b] == NULL) {
             continue;
+        }
+        if (b == 0) {
+            out += section._num[b]*vv;
         }
         out += section._num[b]*w[b];
     }
