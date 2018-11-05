@@ -9,4 +9,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     transferfunction.h \
-    cascade_filter.h
+    cascade_filter.h \
+    section.h

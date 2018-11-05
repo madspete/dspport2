@@ -5,7 +5,7 @@ Transferfunction::Transferfunction()
 {
 
 }
-Transferfunction::Transferfunction(std::vector<double> num, std::vector<double> den){
+Transferfunction::Transferfunction(const std::vector<double> &num, const std::vector<double> &den){
     if(num[num.size()-1] != 1){
         std::cout << "not a valid input, the last number in the vector has to be 1" << std::endl;
     }
@@ -17,12 +17,12 @@ Transferfunction::Transferfunction(std::vector<double> num, std::vector<double> 
 
 void Transferfunction::DirectForm2(){
     //starter med at finde størrelsen på tæller og nævner
-    int sizeNum, sizeDen;
+    unsigned int sizeNum, sizeDen;
     sizeNum = _num.size();
     sizeDen = _den.size();
 
     //ændrer fortegnet på alle tal i nævneren
-    for(int i = 0; i < sizeNum; ++i){
+    for(unsigned int i = 0; i < sizeNum; ++i){
         _num[i] = _num[i] * (-1);
     }
     //beregner w(n)
