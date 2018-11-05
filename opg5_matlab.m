@@ -3,10 +3,10 @@ clear;
 close;
 clc;
 
-dnum = [0.01031 0.06188 0.1547 0.2063 0.1547 0.06188 0.01031]; %tæller poly
-num = [1 -1.188 1.305 -0.6743 0.2635 -0.05175 0.005023]; %nævner poly
+num = [0.01031 0.06188 0.1547 0.2063 0.1547 0.06188 0.01031]; %tæller poly
+dnum = [1 -1.188 1.305 -0.6743 0.2635 -0.05175 0.005023]; %nævner poly
 
-[sos, g] = tf2sos(num, dnum, 'down', 'none')
+[sos, g] = tf2sos(dnum, num, 'down', 'none')
 H1num = sos(1:1,1:3);
 H1den = sos(1:1,4:6);
 H2num = sos(2:2,1:3);
