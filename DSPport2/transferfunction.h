@@ -8,7 +8,7 @@ class Transferfunction
 public:
     Transferfunction();
 
-    Transferfunction(std::vector<double> num, std::vector<double> den);
+    Transferfunction(const std::vector<double> &num, const std::vector<double> &den);
 
     void DirectForm2();
 
