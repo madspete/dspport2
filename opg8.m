@@ -16,5 +16,5 @@ num = [1 -1.188 1.305 -0.6743 0.2635 -0.05175 0.005023]; %nævner poly
 Hz = filt(dnum, num)
 
 %find output
-[y, t] = lsim(Hz, values, n);
+[y, t] = lsim(Hz, values);
 y
