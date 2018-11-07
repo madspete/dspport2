@@ -18,16 +18,14 @@ void Cascade_filter::calculate(std::string inputfile, std::string outputpath, do
         }
     }
 
+    //gain (fra matlab) 1. kaskade
+    for ( unsigned int i = 0; i < _section[0]._num.size(); i++) {
+        _section[0]._num[i]*=gain;
+    }
+
     for (unsigned int in = 0; in < inputValues.size(); in++) { // Løber gennem alle inputværdierne.
         double output = inputValues[in];
         for (unsigned int sec = 0; sec < _section.size(); sec++ ) { // Udregn outputtet af hver kaskade.
-
-            //gain (fra matlab) 1. kaskade - ryk op
-//            if (sec == 0) {
-//                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
-//                    _section[sec]._num[i]*=gain;
-//                }
-//            }
 
             //udregn kaskader
             output = calcSection(w[sec], _section[sec], output);
