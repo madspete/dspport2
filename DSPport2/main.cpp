@@ -4,13 +4,15 @@
 
 using namespace std;
 
+#define KASPER_PATH "/home/kasper/Documents/DSP/port2/to_git_rep/dspport2/data.txt"
+
 int main()
 {
     // Initialiserer 2. ordens sektioner.
     std::vector <double> h1denum;   std::vector <double> h2denum;  std::vector <double> h3denum;
     std::vector <double> h1num; std::vector <double> h2num; std::vector <double> h3num;
     std::vector <Section> secVector;
-    std::string filepath = "C:/Users/Bruger/Documents/GitHub/dspport2/data.txt";
+    std::string filepath = KASPER_PATH;
 
     // Udfyld vektorer med resultater fra matlab.
     h1num.push_back(1);

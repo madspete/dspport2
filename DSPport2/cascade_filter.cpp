@@ -20,11 +20,11 @@ void Cascade_filter::calculate(std::string inputfile, std::string outputpath) {
     for (unsigned int in = 0; in < inputValues.size(); in++) { // Løber gennem alle inputværdierne.
         double output = inputValues[in];
         for (unsigned int sec = 0; sec < _section.size(); sec++ ) { // Udregn outputtet af hver kaskade.
-//            if (sec == 0) {
-//                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
-//                    _section[sec]._num[i]*=97.0;
-//                }
-//            }
+            if (sec == 0) {
+                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
+                    _section[sec]._num[i]*=0.0103;
+                }
+            }
             output = calcSection(w[sec], _section[sec], output);
 
         }

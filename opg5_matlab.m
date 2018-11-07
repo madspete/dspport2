@@ -20,4 +20,3 @@ H3den = sos(3:3,4:6)
 % H2den = fliplr(H2den)
 % H3num = fliplr(H3num)
 % H3den = fliplr(H3den)
-g
