@@ -12,13 +12,14 @@ public:
 
     Cascade_filter(const std::vector <Section> &sections);
 
-    void calculate(std::string inputfile, std::string outputpath);
+    void calculate(std::string inputfile, std::string outputpath, double gain);
 
     double calcSection(std::vector <double> &w, const Section &section, double in );
 
 private:
     // Kun til CSV.
     std::vector <double> readFile(std::string inputFile);
+    void writeFile(const std::vector<double> &values, std::string out_path); //TODO
 
     void shiftVector(std::vector <double> &vec, const double &newFirst) {
         vec.pop_back();
@@ -26,6 +27,7 @@ private:
         vec.insert(it,newFirst);
     }
 
+    std::vector<double> makeInput(int numSamples);
     std::vector <Section> _section;
 };
 

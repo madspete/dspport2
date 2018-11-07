@@ -4,9 +4,10 @@ Cascade_filter::Cascade_filter(const std::vector <Section> &sections) {
     _section = sections;
 }
 
-void Cascade_filter::calculate(std::string inputfile, std::string outputpath) {
+void Cascade_filter::calculate(std::string inputfile, std::string outputpath, double gain) {
 
-    std::vector <double> inputValues = readFile(inputfile); // Indeholder inputværdier
+//    std::vector <double> inputValues = readFile(inputfile); // Indeholder inputværdier
+    std::vector<double> inputValues = makeInput(30);
     std::vector <double> outputValues; // Indeholder outputværdier.
     std::vector <std::vector <double> > w(_section.size()); // Buffer, til at holde tidligere udregnede værdier for w_k(n-a).
 
@@ -20,13 +21,16 @@ void Cascade_filter::calculate(std::string inputfile, std::string outputpath) {
     for (unsigned int in = 0; in < inputValues.size(); in++) { // Løber gennem alle inputværdierne.
         double output = inputValues[in];
         for (unsigned int sec = 0; sec < _section.size(); sec++ ) { // Udregn outputtet af hver kaskade.
-            if (sec == 0) {
-                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
-                    _section[sec]._num[i]*=0.0103;
-                }
-            }
-            output = calcSection(w[sec], _section[sec], output);
 
+            //gain (fra matlab) 1. kaskade - ryk op
+//            if (sec == 0) {
+//                for ( unsigned int i = 0; i < _section[sec]._num.size(); i++) {
+//                    _section[sec]._num[i]*=gain;
+//                }
+//            }
+
+            //udregn kaskader
+            output = calcSection(w[sec], _section[sec], output);
         }
         outputValues.push_back(output);
     }
@@ -47,8 +51,24 @@ std::vector <double> Cascade_filter::readFile(std::string inputFile ) {
     while (file >> buffer) {
         returnVector.push_back(buffer);
     }
+    file.close();
     return returnVector;
 }
+
+//void Cascade_filter::writeFile(const std::vector<double> &values, std::string out_path){
+//    std::ostream os(out_path + "/output_data.txt");
+//    if (!os.is_open()) {
+//        std::cout << out_path << " Invalid!" << std::endl;
+//        exit(1);
+//    }
+//    for (unsigned int i = 0; i < values.size(); i++){
+//        os << values[i];
+//        if ((i+1) < values.size()){
+//            os << "," << std::endl;
+//        }
+//    }
+//    return;
+//}
 
 double Cascade_filter::calcSection(std::vector <double> &w, const Section &section, double in ) {
 
@@ -74,4 +94,13 @@ double Cascade_filter::calcSection(std::vector <double> &w, const Section &secti
     shiftVector(w,vv);
 
     return out;
+}
+
+std::vector<double> Cascade_filter::makeInput(int numSamples){
+    std::vector<double> res(numSamples);
+    for (unsigned int i = 0; i < res.capacity(); i++){
+        res[i] = 1.0;
+    }
+
+    return res;
 }

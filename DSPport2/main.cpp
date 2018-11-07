@@ -4,7 +4,9 @@
 
 using namespace std;
 
+#define OUT_PATH ""
 #define KASPER_PATH "/home/kasper/Documents/DSP/port2/to_git_rep/dspport2/data.txt"
+#define GAIN 0.0103
 
 int main()
 {
@@ -47,7 +49,7 @@ int main()
 
     Cascade_filter filter(secVector);
 
-    filter.calculate(filepath,"");
+    filter.calculate(filepath,OUT_PATH, GAIN);
 
 
     // Til Opgave 6
