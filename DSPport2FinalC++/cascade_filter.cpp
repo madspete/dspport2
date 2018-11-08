@@ -99,3 +99,13 @@ std::vector<double> Cascade_filter::makeInput(int numSamples){
 
     return res;
 }
+
+std::vector<double> Cascade_filter::makeStepInput(int numSamples){
+    std::vector<double> res(numSamples);
+    res[0] = 1.0;
+    for (unsigned int i = 1; i < res.capacity(); i++){
+        res[i] = 0.0;
+    }
+
+    return res;
+}

@@ -28,6 +28,7 @@ private:
     }
 
     std::vector<double> makeInput(int numSamples);
+    std::vector<double> makeStepInput(int numSamples);
     std::vector <Section> _section;
 };
 
